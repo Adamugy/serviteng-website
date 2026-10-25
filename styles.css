@@ -59,15 +59,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .menu-toggle { display: none; }
 
 .hero { position: relative; display: flex; min-height: min(720px, calc(100svh - 78px)); align-items: center; overflow: hidden; color: var(--white); background: var(--ink); }
-.hero-photo, .hero-shade, .hero-vignette { position: absolute; inset: 0; }
+.hero-photo, .hero-shade { position: absolute; inset: 0; }
 .hero-photo { background-image: url('assets/hero-project.jpg'); background-position: center 48%; background-size: cover; }
-/* Subtle gradient overlay - softer, lets image show through */
-.hero-shade { background: linear-gradient(90deg, rgb(7 26 42 / 85%) 0%, rgb(7 26 42 / 55%) 40%, rgb(7 26 42 / 15%) 70%, transparent 100%), linear-gradient(180deg, rgb(7 26 42 / 25%) 0%, transparent 50%, rgb(7 26 42 / 20%) 100%); }
-/* Vignette for depth */
-.hero-vignette { background: radial-gradient(ellipse 80% 60% at 20% 50%, transparent 0%, rgb(7 26 42 / 35%) 100%); pointer-events: none; }
+/* Very subtle gradient - just enough for text contrast, image stays visible */
+.hero-shade { background: linear-gradient(90deg, rgb(7 26 42 / 70%) 0%, rgb(7 26 42 / 30%) 50%, transparent 85%), linear-gradient(180deg, rgb(7 26 42 / 15%) 0%, transparent 40%, rgb(7 26 42 / 10%) 100%); }
 .hero-content { position: relative; z-index: 1; padding-top: 55px; padding-bottom: 94px; }
-/* Glassmorphism panel behind text for readability */
-.hero-content::before { content: ''; position: absolute; inset: -32px -40px; background: linear-gradient(135deg, rgb(255 255 255 / 6%) 0%, rgb(255 255 255 / 2%) 100%); backdrop-filter: blur(1.5px); border-radius: 1px; border-left: 1px solid rgb(255 255 255 / 10%); z-index: -1; pointer-events: none; }
 
 /* GSAP initial state - only applies when JS runs (via .js-enabled class) */
 .js-enabled .hero-content > * {
@@ -267,10 +263,8 @@ h1, h2, h3 { font-family: var(--font-display); }
   .main-nav .nav-cta { margin-top: 12px; padding: 14px 16px; border: 0; text-align: center; }
   .hero { min-height: 690px; min-height: min(760px, calc(100svh - 68px)); }
   .hero-photo { background-position: 58% center; }
-  .hero-shade { background: linear-gradient(90deg, rgb(7 26 42 / 85%) 0%, rgb(7 26 42 / 55%) 40%, rgb(7 26 42 / 15%) 70%, transparent 100%), linear-gradient(180deg, rgb(7 26 42 / 25%) 0%, transparent 50%, rgb(7 26 42 / 20%) 100%); }
-  .hero-vignette { background: radial-gradient(ellipse 50% 40% at 20% 50%, transparent 0%, rgb(7 26 42 / 35%) 100%); }
+  .hero-shade { background: linear-gradient(90deg, rgb(7 26 42 / 70%) 0%, rgb(7 26 42 / 30%) 50%, transparent 85%), linear-gradient(180deg, rgb(7 26 42 / 15%) 0%, transparent 40%, rgb(7 26 42 / 10%) 100%); }
   .hero-content { padding-top: 48px; padding-bottom: 78px; }
-  .hero-content::before { inset: -20px -24px; background: linear-gradient(135deg, rgb(255 255 255 / 6%) 0%, rgb(255 255 255 / 2%) 100%); backdrop-filter: blur(1px); }
   .hero h1 { font-size: clamp(44px, 11vw, 68px); }
   .hero-lede { max-width: 430px; font-size: 18px; }
   .hero-footnote { margin-top: 55px; font-size: 12px; }
@@ -380,9 +374,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 .hero { color: var(--ink); background: #fff; }
 .hero-photo { top: 0; right: 0; bottom: 0; left: auto; width: 49%; transform: none; }
-/* Light theme: subtle white gradient fade on right side */
-.hero-shade { background: linear-gradient(90deg, transparent 0%, rgb(255 255 255 / 40%) 40%, rgb(255 255 255 / 85%) 70%, #fff 100%); }
-.hero-vignette { background: radial-gradient(ellipse 60% 50% at 80% 50%, transparent 0%, rgb(23 59 92 / 8%) 100%); pointer-events: none; }
+/* Light theme: very subtle white fade on right side only */
+.hero-shade { background: linear-gradient(90deg, transparent 0%, rgb(255 255 255 / 20%) 50%, rgb(255 255 255 / 70%) 80%, #fff 100%); }
 .hero .eyebrow { color: #477aa5; }
 .hero-lede { color: #526b81; }
 .hero-footnote { color: #536d82; font-size: 14px; }
@@ -394,8 +387,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .text-link > span:last-child { color: #477aa5; }
 .status-dot { background: #477aa5; box-shadow: 0 0 0 4px rgb(71 122 165 / 14%); }
 .hero-index-line { background: #477aa5; }
-/* Glassmorphism panel for light theme */
-.hero-content::before { content: ''; position: absolute; inset: -32px -40px; background: linear-gradient(135deg, rgb(23 59 92 / 4%) 0%, transparent 100%); backdrop-filter: blur(1px); border-radius: 1px; border-right: 1px solid rgb(23 59 92 / 8%); z-index: -1; pointer-events: none; }
 
 .proof-strip { color: var(--ink); background: #f2f6fa; border-block: 1px solid #e3ebf1; }
 .proof-intro { color: #477aa5; font-size: 15px; }
@@ -482,8 +473,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .hero { color: var(--ink); }
   .hero-photo { left: 35%; width: 65%; opacity: .22; }
   .hero-shade { left: 0; background: linear-gradient(90deg, #fff 0%, rgb(255 255 255 / 80%) 54%, rgb(255 255 255 / 40%) 100%); }
-  .hero-vignette { background: radial-gradient(ellipse 50% 40% at 70% 50%, transparent 0%, rgb(23 59 92 / 12%) 100%); }
-  .hero-content::before { inset: -20px -24px; background: linear-gradient(135deg, rgb(23 59 92 / 5%) 0%, transparent 100%); backdrop-filter: blur(0.5px); }
   .hero h1 { font-size: clamp(46px, 11.5vw, 72px); }
   .hero-lede { color: #526b81; font-size: 19px; }
   .hero-footnote { color: #536d82; font-size: 13px; }
@@ -511,8 +500,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .hero h1 { max-width: 620px; font-size: clamp(50px, 6.5vw, 68px); }
   .hero-photo { width: 44%; background-position: 57% center; }
   .hero-shade { background: linear-gradient(90deg, #fff 0%, rgb(255 255 255 / 96%) 46%, rgb(255 255 255 / 45%) 68%, transparent 100%); }
-  .hero-vignette { background: radial-gradient(ellipse 60% 50% at 80% 50%, transparent 0%, rgb(23 59 92 / 10%) 100%); }
-  .hero-content::before { inset: -24px -32px; }
   .section { padding: 88px 0 96px; }
   .section-heading { align-items: flex-start; flex-direction: column; gap: 21px; margin-bottom: 38px; }
   .section-heading h2 { font-size: clamp(44px, 5.4vw, 58px); }
@@ -546,8 +533,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 @media (max-width: 380px) {
   .page-width, .nav-wrap, .quality-wrap, .coverage-wrap { width: calc(100% - 32px); }
   .hero h1 { font-size: clamp(42px, 11.5vw, 50px); }
-  .hero-vignette { background: radial-gradient(ellipse 45% 35% at 20% 50%, transparent 0%, rgb(7 26 42 / 40%) 100%); }
-  .hero-content::before { inset: -16px -20px; }
   .coverage-regions { grid-template-columns: 1fr; }
   .coverage-region, .coverage-address { min-height: 0; }
   .partner-logo { min-height: 88px; padding: 11px; }
