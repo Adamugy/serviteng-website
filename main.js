@@ -1,3 +1,16 @@
+// Enable JS-enhanced animations only when GSAP loads
+(function () {
+  document.documentElement.classList.remove('no-js');
+  if (window.gsap && window.ScrollTrigger) {
+    document.documentElement.classList.add('js-enabled');
+  } else {
+    // Fallback: if GSAP doesn't load within 3s, show content anyway
+    setTimeout(() => {
+      document.documentElement.classList.add('js-enabled');
+    }, 3000);
+  }
+})();
+
 const copy = {
   pt: {
     title: 'Serviteng Engineering | Serviços técnicos e engenharia',
@@ -263,9 +276,9 @@ quoteForm.addEventListener('submit', (event) => {
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 if (window.gsap && window.ScrollTrigger && !motionPreference.matches) {
   gsap.registerPlugin(ScrollTrigger);
-  gsap.from('.hero-content > *', {
-    autoAlpha: 0,
-    y: 22,
+  gsap.fromTo('.hero-content > *', { autoAlpha: 0, y: 22 }, {
+    autoAlpha: 1,
+    y: 0,
     duration: 0.72,
     stagger: 0.09,
     ease: 'power3.out',
