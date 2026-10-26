@@ -72,6 +72,24 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   opacity: 0;
   transform: translateY(22px);
 }
+/* SplitText reveals the hero title letter by letter; the mask hides the characters */
+.js-enabled .hero-content > #hero-title {
+  opacity: 1;
+  transform: none;
+}
+/* Avoid kerning shifts when SplitText wraps each character */
+#hero-title,
+h2[data-i18n-html] {
+  font-kerning: none;
+  text-rendering: optimizeSpeed;
+}
+/* Give masked lines room for accents and descenders (g, q, p, ç, é) */
+.splitline-mask {
+  padding-top: 0.06em;
+  padding-bottom: 0.14em;
+  margin-top: -0.06em;
+  margin-bottom: -0.14em;
+}
 .eyebrow { display: flex; align-items: center; gap: 11px; margin: 0 0 22px; color: var(--cyan); font-size: 12px; font-weight: 700; letter-spacing: .14em; line-height: 1.5; text-transform: uppercase; }
 .hero .eyebrow { color: var(--cyan-light); }
 .eyebrow-mark { display: inline-block; width: 25px; height: 2px; flex: 0 0 auto; background: currentColor; }

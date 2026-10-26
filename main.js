@@ -7,6 +7,9 @@
   }
 })();
 
+const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+let titleSplits = [];
+
 const copy = {
   pt: {
     title: 'Serviteng Engineering | Serviços técnicos e engenharia',
@@ -14,22 +17,22 @@ const copy = {
     skip: 'Saltar para o conteúdo', brandHome: 'Serviteng Engineering, início', navLabel: 'Navegação principal', proofLabel: 'Serviteng em resumo', processLabel: 'Processo de execução em seis etapas', menu: 'Abrir navegação', menuClose: 'Fechar navegação', menuLabel: 'Abrir navegação',
     navServices: 'Serviços', navMethod: 'Processo', navProjects: 'Projetos', navCompany: 'Empresa', navQuote: 'Consulte o Engenheiro',
     heroImage: 'Fotografia real de uma instalação industrial onde a Serviteng realizou trabalhos', teamImage: 'Equipa técnica da Serviteng em obra', brandLogo: 'Logótipo Serviteng — Serviços Técnicos de Engenharia',
-    heroEyebrow: 'Serviços técnicos e engenharia em Moçambique', heroTitle: 'Engenharia que mantém<br>a indústria em movimento.',
+    heroEyebrow: 'Serviços técnicos e engenharia em Moçambique', heroTitle: 'Engenharia que mantém <br>a indústria em movimento.',
     heroLede: 'Manutenção industrial, instalação de equipamentos e equipas técnicas especializadas para apoiar operações em Moçambique.',
     heroCta: 'Consulte o Engenheiro', heroLink: 'Conheça os serviços', heroFoot: 'Matola, Moçambique · Em campo desde 2016',
-    proofIntro: 'Competência técnica.<br>Presença no terreno.', proofFounded: 'Fundada em Moçambique', proofBase: 'Base operacional', proofMember: 'Empresa membro', proofFocus: 'Qualidade, ambiente e segurança',
-    servicesEyebrow: 'O que fazemos', servicesTitle: 'Manutenção e engenharia<br>para a indústria.',
+    proofIntro: 'Competência técnica. <br>Presença no terreno.', proofFounded: 'Fundada em Moçambique', proofBase: 'Base operacional', proofMember: 'Empresa membro', proofFocus: 'Qualidade, ambiente e segurança',
+    servicesEyebrow: 'O que fazemos', servicesTitle: 'Manutenção e engenharia <br>para a indústria.',
     servicesIntro: 'A Serviteng trabalha em manutenção e instalação industrial, tubagens, estruturas metálicas, soldadura técnica e projectos de engenharia.',
     service1: 'Manutenção industrial', service1d: 'Serviços de manutenção industrial para equipamentos e instalações, com foco na continuidade operacional.',
     service2: 'Serralharia mecânica e soldadura', service2d: 'Montagem e desmontagem de estruturas metálicas; soldadura técnica em aço macio, alumínio e aço inox, incluindo tubagens de gás de alta pressão.',
     service3: 'Instalação de equipamentos industriais', service3d: 'Montagem de bombas, válvulas, tubagens e respectivos acessórios.',
     service4: 'Projectos de engenharia mecânica', service4d: 'Consultoria e projectos mecânicos adaptados às necessidades de cada instalação.',
     service5: 'Técnicos especializados', service5d: 'Disponibilização de técnicos de soldadura, mecânica e serralharia geral e industrial.',
-    methodEyebrow: 'Como trabalhamos', methodTitle: 'Planeamento claro.<br>Execução controlada.',
+    methodEyebrow: 'Como trabalhamos', methodTitle: 'Planeamento claro. <br>Execução controlada.',
     methodIntro: 'Organizamos cada intervenção em etapas definidas para manter a comunicação clara, reduzir riscos e tornar as entregas mais previsíveis.', methodLink: 'Converse sobre o seu projeto',
     step1: 'Levantamento', step1d: 'Compreender o local e o escopo.', step2: 'Diagnóstico', step2d: 'Avaliar requisitos e condições.', step3: 'Planeamento', step3d: 'Definir recursos, prazos e controlos.', step4: 'Execução', step4d: 'Realizar o trabalho no terreno.', step5: 'Controlo HSE/QC', step5d: 'Verificar segurança e qualidade.', step6: 'Entrega', step6d: 'Concluir e comunicar os resultados.',
-    projectsEyebrow: 'Portfólio técnico', projectsTitle: 'Intervenções que mantêm<br>a indústria em movimento.',
-    qualityEyebrow: 'Qualidade, ambiente e segurança', qualityTitle: 'Controlo técnico<br>em cada intervenção.',
+    projectsEyebrow: 'Portfólio técnico', projectsTitle: 'Intervenções que mantêm <br>a indústria em movimento.',
+    qualityEyebrow: 'Qualidade, ambiente e segurança', qualityTitle: 'Controlo técnico <br>em cada intervenção.',
     qualityIntro: 'A política integrada da Serviteng compromete-se com os requisitos do cliente, a melhoria contínua, a segurança das pessoas e a protecção do ambiente.',
     quality1: 'Prevenção de riscos', quality1d: 'Planeamento de risco, EPI, sinalização, procedimentos e controlo da zona de trabalho.',
     quality2: 'Verificação da execução', quality2d: 'Inspeção visual, controlo dimensional, acabamento e verificação técnica.',
@@ -50,14 +53,14 @@ const copy = {
     project10tag: 'Soldadura industrial', project10: 'Soldadura de flanges e tubagens', project10d: 'Trabalho de soldadura em tubagens e componentes com flanges.',
     projectImage1: 'Vedantes instalados no perímetro do teto flutuante de um tanque', projectImage2: 'Trabalhadores a preparar e pintar o interior de um tanque', projectImage3: 'Protecção aplicada à base de um tanque', projectImage4: 'Componente metálico de grande porte em fabrico', projectImage5: 'Vedante periférico instalado na parede interna de um tanque', projectImage6: 'Aplicação de revestimento Denso e pintura na base do tanque', projectImage7: 'Bombas e tubagens na casa de bombas', projectImage8: 'Vedante periférico do teto flutuante junto à parede do tanque', projectImage9: 'Cobertura metálica apoiada em pilares', projectImage10: 'Soldador a trabalhar numa tubagem com flanges',
     carouselRole: 'carrossel',
-    companyEyebrow: 'Sobre a Serviteng', companyTitle: 'Pessoas técnicas.<br>Compromisso no terreno.',
+    companyEyebrow: 'Sobre a Serviteng', companyTitle: 'Pessoas técnicas. <br>Compromisso no terreno.',
     companyCopy: 'Fundada em 2016 na área metalomecânica, a Serviteng actua na manutenção e instalação de equipamentos industriais, tubagens, estruturas metálicas, soldadura e projectos de engenharia.',
     value1: 'Qualidade técnica', value2: 'Segurança operacional', value3: 'Excelência na execução', companyLink: 'Consulte o Engenheiro',
-    partnersEyebrow: 'Referências institucionais', partnersTitle: 'Experiência junto<br>a organizações de referência.', partnersIntro: 'Marcas apresentadas no perfil corporativo da Serviteng.', partnersLabel: 'Referências institucionais Serviteng',
-    coverageEyebrow: 'Onde atuamos', coverageTitle: 'Presença nas principais<br>regiões de Moçambique.', coverageIntro: 'Com sede na Matola, atendemos projetos no norte, centro e sul do país.',
+    partnersEyebrow: 'Referências institucionais', partnersTitle: 'Experiência junto <br>a organizações de referência.', partnersIntro: 'Marcas apresentadas no perfil corporativo da Serviteng.', partnersLabel: 'Referências institucionais Serviteng',
+    coverageEyebrow: 'Onde atuamos', coverageTitle: 'Presença nas principais <br>regiões de Moçambique.', coverageIntro: 'Com sede na Matola, atendemos projetos no norte, centro e sul do país.',
     licenseTitle: 'Obras públicas — 4.ª classe', licenseDetail: 'Categoria Edifícios e Monumentos · Alvará válido até 25 de janeiro de 2027.',
     regionNorth: 'Norte', regionNorthDetail: 'Nampula · Nacala Porto', regionCentral: 'Centro', regionCentralDetail: 'Sofala · Beira · Porto da Beira', regionSouth: 'Sul', regionSouthDetail: 'Maputo · Matola', headOffice: 'Sede', openMap: 'Ver localização',
-    quoteEyebrow: 'Vamos conversar', quoteTitle: 'O seu próximo projeto<br>começa com uma conversa.',
+    quoteEyebrow: 'Vamos conversar', quoteTitle: 'O seu próximo projeto <br>começa com uma conversa.',
     quoteIntro: 'Conte-nos do que precisa. A nossa equipa recebe o seu pedido pelo WhatsApp e dará seguimento consigo.',
     formTitle: 'Consulte o Engenheiro', nameLabel: 'Nome', namePlaceholder: 'O seu nome', contactLabel: 'Telefone ou email', contactPlaceholder: 'Como podemos contactar?',
     serviceLabel: 'Serviço pretendido', servicePlaceholder: 'Selecione uma área', otherService: 'Outro', messageLabel: 'Descrição do pedido', messagePlaceholder: 'Descreva brevemente o trabalho ou a necessidade',
@@ -71,22 +74,22 @@ const copy = {
     skip: 'Skip to content', brandHome: 'Serviteng Engineering, home', navLabel: 'Main navigation', proofLabel: 'Serviteng at a glance', processLabel: 'Six-step delivery process', menu: 'Open navigation', menuClose: 'Close navigation', menuLabel: 'Open navigation',
     navServices: 'Services', navMethod: 'Process', navProjects: 'Projects', navCompany: 'Company', navQuote: 'Consult an engineer',
     heroImage: 'Real photograph of an industrial facility at a Serviteng project in Mozambique', teamImage: 'Serviteng technical team on site', brandLogo: 'Serviteng logo — Technical Engineering Services',
-    heroEyebrow: 'Industrial services and engineering in Mozambique', heroTitle: 'Engineering that keeps<br>industry moving.',
+    heroEyebrow: 'Industrial services and engineering in Mozambique', heroTitle: 'Engineering that keeps <br>industry moving.',
     heroLede: 'Industrial maintenance, equipment installation and specialist technical teams to support operations across Mozambique.',
     heroCta: 'Consult an engineer', heroLink: 'Explore our services', heroFoot: 'Based in Matola · Serving Mozambique since 2016',
-    proofIntro: 'Technical expertise.<br>On-site presence.', proofFounded: 'Founded in Mozambique', proofBase: 'Operating base', proofMember: 'Member company', proofFocus: 'Quality, environment and safety',
-    servicesEyebrow: 'What we do', servicesTitle: 'Maintenance and engineering<br>for industry.',
+    proofIntro: 'Technical expertise. <br>On-site presence.', proofFounded: 'Founded in Mozambique', proofBase: 'Operating base', proofMember: 'Member company', proofFocus: 'Quality, environment and safety',
+    servicesEyebrow: 'What we do', servicesTitle: 'Maintenance and engineering <br>for industry.',
     servicesIntro: 'Serviteng works in industrial maintenance and installation, piping, metal structures, technical welding and engineering projects.',
     service1: 'Industrial maintenance', service1d: 'Maintenance services for industrial equipment and facilities, focused on operational continuity.',
     service2: 'Metal fabrication and welding', service2d: 'Assembly and dismantling of metal structures, with technical welding in mild steel, aluminium and stainless steel, including high-pressure gas piping.',
     service3: 'Industrial equipment installation', service3d: 'Installation of pumps, valves, piping and related accessories.',
     service4: 'Mechanical engineering projects', service4d: 'Consulting and mechanical projects tailored to each facility.',
     service5: 'Specialist technical personnel', service5d: 'Provision of welding, mechanical and general or industrial metalwork technicians.',
-    methodEyebrow: 'How we work', methodTitle: 'Clear planning.<br>Controlled delivery.',
+    methodEyebrow: 'How we work', methodTitle: 'Clear planning. <br>Controlled delivery.',
     methodIntro: 'We organise each intervention into defined stages to keep communication clear, reduce risk and make handovers more predictable.', methodLink: 'Discuss your project',
     step1: 'Survey', step1d: 'Understand the site and scope.', step2: 'Assessment', step2d: 'Assess requirements and conditions.', step3: 'Planning', step3d: 'Define resources, timelines and controls.', step4: 'Execution', step4d: 'Carry out the work on site.', step5: 'HSE and quality control', step5d: 'Check safety and quality.', step6: 'Handover', step6d: 'Complete the work and report results.',
-    projectsEyebrow: 'Technical portfolio', projectsTitle: 'Work that keeps<br>industry moving.',
-    qualityEyebrow: 'Quality, environment and safety', qualityTitle: 'Technical control<br>at every intervention.',
+    projectsEyebrow: 'Technical portfolio', projectsTitle: 'Work that keeps <br>industry moving.',
+    qualityEyebrow: 'Quality, environment and safety', qualityTitle: 'Technical control <br>at every intervention.',
     qualityIntro: 'Serviteng’s integrated management policy is guided by client requirements, continual improvement, worker safety and environmental protection.',
     quality1: 'Risk prevention', quality1d: 'Risk assessments, PPE, signage, safe-work procedures and control of the work area.',
     quality2: 'Workmanship checks', quality2d: 'Visual inspection, dimensional checks, finishing and technical verification.',
@@ -107,14 +110,14 @@ const copy = {
     project10tag: 'Industrial welding', project10: 'Welding flanges and piping', project10d: 'Welding work on piping and flanged components.',
     projectImage1: 'Seals installed around the floating roof of a tank', projectImage2: 'Workers preparing and painting the inside of a tank', projectImage3: 'Protection applied to the base of a tank', projectImage4: 'Large metal component being fabricated', projectImage5: 'Peripheral seal installed on the inside wall of a tank', projectImage6: 'Denso coating and paint applied to the tank base', projectImage7: 'Pumps and piping in the pump house', projectImage8: 'Floating-roof peripheral seal beside the tank wall', projectImage9: 'Metal canopy supported by columns', projectImage10: 'Welder working on flanged piping',
     carouselRole: 'carousel',
-    companyEyebrow: 'About Serviteng', companyTitle: 'Skilled professionals.<br>Committed on site.',
+    companyEyebrow: 'About Serviteng', companyTitle: 'Skilled professionals. <br>Committed on site.',
     companyCopy: 'Established in 2016, Serviteng provides industrial equipment maintenance and installation, piping, metal structures, welding and mechanical engineering services.',
     value1: 'Technical quality', value2: 'Operational safety', value3: 'Execution excellence', companyLink: 'Speak with an engineer',
-    partnersEyebrow: 'Institutional references', partnersTitle: 'Experience alongside<br>leading organisations.', partnersIntro: 'Brands featured in Serviteng’s corporate profile.', partnersLabel: 'Serviteng institutional references',
-    coverageEyebrow: 'Where we work', coverageTitle: 'Present across<br>Mozambique’s key regions.', coverageIntro: 'Based in Matola, we serve projects across northern, central and southern Mozambique.',
+    partnersEyebrow: 'Institutional references', partnersTitle: 'Experience alongside <br>leading organisations.', partnersIntro: 'Brands featured in Serviteng’s corporate profile.', partnersLabel: 'Serviteng institutional references',
+    coverageEyebrow: 'Where we work', coverageTitle: 'Present across <br>Mozambique’s key regions.', coverageIntro: 'Based in Matola, we serve projects across northern, central and southern Mozambique.',
     licenseTitle: 'Public works contractor — Class 4', licenseDetail: 'Buildings and Monuments category · Licence valid until 25 January 2027.',
     regionNorth: 'North', regionNorthDetail: 'Nampula · Nacala Porto', regionCentral: 'Centre', regionCentralDetail: 'Sofala · Beira · Port of Beira', regionSouth: 'South', regionSouthDetail: 'Maputo · Matola', headOffice: 'Head office', openMap: 'View location',
-    quoteEyebrow: 'Let’s talk', quoteTitle: 'Your next project<br>starts with a conversation.',
+    quoteEyebrow: 'Let’s talk', quoteTitle: 'Your next project <br>starts with a conversation.',
     quoteIntro: 'Tell us what you need. Our team will receive your enquiry on WhatsApp and contact you to discuss the next steps.',
     formTitle: 'Consult an engineer', nameLabel: 'Name', namePlaceholder: 'Your name', contactLabel: 'Phone or email', contactPlaceholder: 'How can we reach you?',
     serviceLabel: 'Service required', servicePlaceholder: 'Select a service area', otherService: 'Other', messageLabel: 'Request details', messagePlaceholder: 'Briefly describe the work or support you need',
@@ -128,6 +131,7 @@ let activeLanguage = 'pt';
 
 function setLanguage(language) {
   if (!copy[language]) return;
+  clearTitleMotion();
   activeLanguage = language;
   const strings = copy[language];
   document.documentElement.lang = language;
@@ -168,6 +172,8 @@ function setLanguage(language) {
     const key = menuToggle.getAttribute('aria-expanded') === 'true' ? 'menuClose' : 'menu';
     menuToggle.querySelector('.sr-only').textContent = strings[key];
   }
+  // Rebuild letter animations for the updated titles
+  initTitleMotion();
   // Refresh ScrollTrigger after language change (layout heights may change)
   if (window.ScrollTrigger) ScrollTrigger.refresh();
 }
@@ -328,7 +334,6 @@ quoteForm.addEventListener('submit', (event) => {
   window.location.assign(url);
 });
 
-const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 const backTopLink = document.querySelector('.back-top');
 if (backTopLink) {
   backTopLink.addEventListener('click', (event) => {
@@ -336,9 +341,64 @@ if (backTopLink) {
     window.scrollTo({ top: 0, behavior: motionPreference.matches ? 'auto' : 'smooth' });
   });
 }
+
+/* Letter-by-letter reveal for the hero title and the section headings. */
+function clearTitleMotion() {
+  titleSplits.forEach((split) => split.revert());
+  titleSplits = [];
+}
+
+function initTitleMotion() {
+  if (motionPreference.matches || !window.gsap || !window.SplitText) return;
+  clearTitleMotion();
+
+  const heroTitle = document.getElementById('hero-title');
+  if (heroTitle) {
+    titleSplits.push(SplitText.create(heroTitle, {
+      type: 'lines,chars',
+      mask: 'lines',
+      linesClass: 'splitline',
+      autoSplit: true,
+      onSplit(self) {
+        return gsap.from(self.chars, {
+          yPercent: 110,
+          autoAlpha: 0,
+          duration: 0.9,
+          stagger: 0.018,
+          ease: 'power3.out',
+          delay: 0.08,
+          onComplete: () => self.revert()
+        });
+      }
+    }));
+  }
+
+  document.querySelectorAll('h2[data-i18n-html]').forEach((heading) => {
+    titleSplits.push(SplitText.create(heading, {
+      type: 'lines,chars',
+      mask: 'lines',
+      linesClass: 'splitline',
+      autoSplit: true,
+      onSplit(self) {
+        return gsap.from(self.chars, {
+          yPercent: 110,
+          autoAlpha: 0,
+          duration: 0.8,
+          stagger: 0.015,
+          ease: 'power3.out',
+          delay: 0.12,
+          scrollTrigger: { trigger: heading, start: 'top 85%', once: true },
+          onComplete: () => self.revert()
+        });
+      }
+    }));
+  });
+}
+
 if (window.gsap && window.ScrollTrigger && !motionPreference.matches) {
   gsap.registerPlugin(ScrollTrigger);
-  gsap.fromTo('.hero-content > *', { autoAlpha: 0, y: 22 }, {
+  if (window.SplitText) gsap.registerPlugin(SplitText);
+  gsap.fromTo('.hero-content > *:not(#hero-title)', { autoAlpha: 0, y: 22 }, {
     autoAlpha: 1,
     y: 0,
     duration: 0.72,
@@ -377,4 +437,6 @@ if (window.gsap && window.ScrollTrigger && !motionPreference.matches) {
     ease: 'none',
     scrollTrigger: { trigger: '.process-list', start: 'top 82%', end: 'bottom 55%', scrub: 0.6 }
   });
+
+  initTitleMotion();
 }
