@@ -9,6 +9,7 @@
 
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 let titleSplits = [];
+let titleCleanupTriggers = [];
 
 const copy = {
   pt: {
@@ -344,17 +345,29 @@ if (backTopLink) {
 
 /* Letter-by-letter reveal for the hero title and the section headings. */
 function clearTitleMotion() {
+  titleCleanupTriggers.forEach((trigger) => trigger.kill());
+  titleCleanupTriggers = [];
   titleSplits.forEach((split) => split.revert());
   titleSplits = [];
 }
 
 function initTitleMotion() {
-  if (motionPreference.matches || !window.gsap || !window.SplitText) return;
+  if (motionPreference.matches || !window.gsap || !window.ScrollTrigger || !window.SplitText) return;
   clearTitleMotion();
+
+  // Revert only when the title is fully out of view, so the DOM swap is invisible.
+  const revertWhenOffscreen = (element, split) => {
+    titleCleanupTriggers.push(ScrollTrigger.create({
+      trigger: element,
+      start: 'bottom top',
+      once: true,
+      onEnter: () => split.revert()
+    }));
+  };
 
   const heroTitle = document.getElementById('hero-title');
   if (heroTitle) {
-    titleSplits.push(SplitText.create(heroTitle, {
+    const heroSplit = SplitText.create(heroTitle, {
       type: 'lines,chars',
       mask: 'lines',
       linesClass: 'splitline',
@@ -366,15 +379,16 @@ function initTitleMotion() {
           duration: 0.9,
           stagger: 0.018,
           ease: 'power3.out',
-          delay: 0.08,
-          onComplete: () => self.revert()
+          delay: 0.08
         });
       }
-    }));
+    });
+    titleSplits.push(heroSplit);
+    revertWhenOffscreen(heroTitle, heroSplit);
   }
 
   document.querySelectorAll('h2[data-i18n-html]').forEach((heading) => {
-    titleSplits.push(SplitText.create(heading, {
+    const split = SplitText.create(heading, {
       type: 'lines,chars',
       mask: 'lines',
       linesClass: 'splitline',
@@ -387,11 +401,12 @@ function initTitleMotion() {
           stagger: 0.015,
           ease: 'power3.out',
           delay: 0.12,
-          scrollTrigger: { trigger: heading, start: 'top 85%', once: true },
-          onComplete: () => self.revert()
+          scrollTrigger: { trigger: heading, start: 'top 85%', once: true }
         });
       }
-    }));
+    });
+    titleSplits.push(split);
+    revertWhenOffscreen(heading, split);
   });
 }
 
