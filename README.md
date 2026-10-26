@@ -16,15 +16,15 @@ Open `index.html` in a browser, or serve this folder with any static file server
 - Institutional references: Impala, Vivo Energy, INPETRO, Petromoc, PetroBeira, SAMcol and Outotec
 - Existing domain shown in the company profile: `serviteng.co.mz`
 
-The quote form opens a WhatsApp message addressed to the number above. It does not store or submit form data to a website backend. Visitors review and send the message in WhatsApp. The carousel uses photographs supplied in the company image folder. The first four case descriptions come from the corporate profile; confirm that each photograph matches its caption and is approved for publication before launch. Partner/reference logos were supplied for this site and appear as institutional references.
+The quote form opens a WhatsApp message addressed to the number above. It does not store or submit form data to a website backend. Visitors review and send the message in WhatsApp. The project photographs currently shown in the carousel are authorised for public disclosure. Confirm approval for any new project photos before publishing them. Partner/reference logos were supplied for this site and appear as institutional references.
 
 ## Project photography
 
-The cover, team and 10-card project carousel use real photographs supplied in the company’s img.jpeg folder.
+The cover and team use photographs from the company image folder. The 10-card project carousel combines photographs supplied in the company image folder and separately during the website review.
 
 ## Hosting and ongoing cost
 
-The site has no server-side runtime, database, form service, or build step. It can be deployed as static files on a free static hosting tier such as Cloudflare Pages. A custom domain normally has an annual registration or renewal cost. GSAP is loaded from jsDelivr and Google Fonts are not used; the site uses system fonts. The GSAP scripts are pinned to version `3.13.0`.
+The site has no server-side runtime, database, form service, or build step. It can be deployed as static files on a free static hosting tier such as Cloudflare Pages. A custom domain normally has an annual registration or renewal cost. GSAP is loaded from jsDelivr; Manrope is served by Google Fonts with system-font fallbacks. The GSAP scripts are pinned to version `3.13.0`.
 
 ## Before publishing
 
