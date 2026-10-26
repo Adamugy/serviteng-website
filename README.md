@@ -1,6 +1,6 @@
 # Serviteng Engineering website
 
-Static, bilingual company website with a manually controlled project carousel, a WhatsApp quotation request form and restrained GSAP motion.
+Static, bilingual company website with an auto-advancing project carousel that pauses on interaction, a WhatsApp quotation request form and restrained GSAP motion.
 
 ## Preview
 

@@ -242,15 +242,76 @@ if (projectCarousel && projectTrack) {
     updateCarouselState();
   };
 
-  previousButton.addEventListener('click', () => goToSlide(activeSlide - 1));
-  nextButton.addEventListener('click', () => goToSlide(activeSlide + 1));
-  projectDots.forEach((dot) => dot.addEventListener('click', () => goToSlide(Number(dot.dataset.carouselDot))));
+  previousButton.addEventListener('click', () => { goToSlide(activeSlide - 1); pauseAutoplay(); });
+  nextButton.addEventListener('click', () => { goToSlide(activeSlide + 1); pauseAutoplay(); });
+  projectDots.forEach((dot) => dot.addEventListener('click', () => { goToSlide(Number(dot.dataset.carouselDot)); pauseAutoplay(); }));
   projectCarousel.addEventListener('scroll', () => {
     if (scrollFrame) cancelAnimationFrame(scrollFrame);
     scrollFrame = requestAnimationFrame(updateCarouselState);
   }, { passive: true });
   window.addEventListener('resize', updateCarouselState, { passive: true });
+
+  /* Auto-scroll: advances on its own and stays out of the way of manual use. */
+  const autoplayMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const AUTOPLAY_DELAY = 6000;
+  const RESUME_DELAY = 5000;
+  let autoplayTimer = null;
+  let resumeTimer = null;
+  let isHovering = false;
+  let isInView = true;
+
+  const stopAutoplay = () => {
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  };
+
+  const startAutoplay = () => {
+    stopAutoplay();
+    if (autoplayMotion.matches || document.hidden || isHovering || !isInView) return;
+    autoplayTimer = setInterval(() => goToSlide(activeSlide + 1), AUTOPLAY_DELAY);
+  };
+
+  // Pause immediately, then resume after the visitor has been idle for a moment.
+  const pauseAutoplay = () => {
+    stopAutoplay();
+    if (resumeTimer) clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(startAutoplay, RESUME_DELAY);
+  };
+
+  ['pointerdown', 'touchstart', 'wheel', 'keydown'].forEach((eventName) => {
+    projectCarousel.addEventListener(eventName, pauseAutoplay, { passive: true });
+  });
+  projectCarousel.addEventListener('pointerenter', () => { isHovering = true; stopAutoplay(); });
+  projectCarousel.addEventListener('pointerleave', () => { isHovering = false; pauseAutoplay(); });
+  projectCarousel.addEventListener('focusin', stopAutoplay);
+  projectCarousel.addEventListener('focusout', pauseAutoplay);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopAutoplay();
+    else startAutoplay();
+  });
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        isInView = entry.isIntersecting;
+        if (isInView) startAutoplay();
+        else stopAutoplay();
+      });
+    }, { threshold: 0.25 }).observe(projectCarousel);
+  }
+
+  if (autoplayMotion.addEventListener) {
+    autoplayMotion.addEventListener('change', () => {
+      if (autoplayMotion.matches) stopAutoplay();
+      else startAutoplay();
+    });
+  }
+
   updateCarouselState();
+  startAutoplay();
 }
 
 const quoteForm = document.getElementById('quote-form');
